@@ -5,7 +5,8 @@ const datetimeHelper = {
   /**
    * Seconds to time
    */
-  secondsToTime: (seconds: number): string => {
+  secondsToTime: (runtime: number | string): string => {
+    const seconds = (typeof runtime === 'string') ? parseInt(runtime) : runtime;
     const format  = ["h", "m", "s"]
     const date    = new Date(0);
 

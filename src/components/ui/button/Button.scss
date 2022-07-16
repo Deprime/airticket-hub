@@ -9,11 +9,30 @@
     @apply block w-full;
   }
 
+  &-disabled {
+    @apply opacity-50;
+  }
+
   &-primary {
     background-color: var(--primary-color);
     @apply text-white;
+
+    &:hover {
+      background-color: var(--primary-color-hover);
+    }
+    &:active {
+      background-color: var(--primary-color-active);
+    }
   }
   &-secondary {
     @apply bg-white;
+    @apply ring-1 ring-inset ring-slate-200;
+
+    &:hover {
+      background-color: var(--secondary-color-hover);
+    }
+    &:active {
+      background-color: var(--secondary-color-active);
+    }
   }
 }

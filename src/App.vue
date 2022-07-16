@@ -11,11 +11,12 @@
   // Components
   import { Skeleton, Button } from '@/components/ui';
   import { Ticket } from '@/components/shared';
-  import { Sidebar } from '@/components/structure';
+  import { Sidebar, QuickFilters } from '@/components/structure';
 
   // Data
   const APP_NAME  = import.meta.env.VUE_APP_NAME;
   const connectionError = ref(false);
+  const loading = ref(false);
   const { fetchTicketList, nextPage } = useTicketStore();
   const { ticketList, ticketLoading, filtredTicketList, hasNextPage, perPage } = storeToRefs(useTicketStore());
 
@@ -40,6 +41,17 @@
       connectionError.value = true;
       throw new Error(error);
     }
+  }
+
+  /**
+   * Synthetic pagination
+   */
+  const loadMore = (): void => {
+    loading.value = true;
+    setTimeout(() => {
+      nextPage();
+      loading.value = false;
+    }, 1000);
   }
 
   onMounted(async () => {
@@ -72,6 +84,8 @@
               />
             </template>
             <template v-else>
+              <QuickFilters />
+
               <TransitionGroup name="ticker-list">
                 <Ticket
                   v-for="ticket in filtredTicketList"
@@ -84,10 +98,17 @@
           </div>
 
           <nav v-if="hasNextPage">
-            <Button block @click="() => {
-              nextPage();
-            }">
-              Показать еще {{ perPage }} билетов
+            <Button
+              block
+              @click="loadMore"
+              :disabled="loading"
+            >
+              <template v-if="loading">
+                Загрузка..
+              </template>
+              <template v-else>
+                Показать еще {{ perPage }} билетов
+              </template>
             </Button>
           </nav>
         </template>

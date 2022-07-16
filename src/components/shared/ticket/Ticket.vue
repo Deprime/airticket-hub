@@ -9,7 +9,7 @@
   import type { ICompany } from '@/types/ICompany';
   interface Props {
     ticket: ITicket,
-    company?: ICompany
+    company: ICompany
   }
 
   // Props

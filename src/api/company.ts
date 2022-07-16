@@ -1,5 +1,5 @@
 import $axios from "@/services/$axios";
-import ICompany from '@/types/ICompany';
+import { ICompany } from '@/types/ICompany';
 
 type GetCompanyResponse = {
   data: ICompany[];

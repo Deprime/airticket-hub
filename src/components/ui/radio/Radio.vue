@@ -17,10 +17,12 @@
     },
     modelValue: {
       type: [Boolean, String, Number],
+      requires: false,
       default: "",
     },
     value: {
       type: [Boolean, String, Number],
+      requires: false,
       default: "",
     },
     disabled: {

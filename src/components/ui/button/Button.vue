@@ -3,31 +3,42 @@
 
   import { computed } from 'vue';
 
-  interface Props {
-    loading?: false,
-    disabled?: false,
-    block?: false,
-    variant?: "primary" | "scondary",
-  }
-
-  const { loading, disabled, block, variant = "primary"} = defineProps<Props>();
+  const props = defineProps({
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    block: {
+      type: Boolean,
+      default: false,
+    },
+    variant: {
+      type: String,
+      default() {
+        return "primary"
+      }
+    }
+  });
 
   const $$class = computed(() => {
-    return [
+    let arr = [
       "at-button",
-      `at-button-${variant}`,
-      loading ? "at-button-loading" : "",
-      block ? "at-button-block" : "",
-      disabled ? "at-button-disabled" : "",
+      `at-button-${props.variant}`,
+      props.loading ? "at-button-loading" : "",
+      props.block ? "at-button-block" : "",
+      props.disabled ? "at-button-disabled" : "",
     ]
-    .join(" ");
-  })
+    return arr;
+  });
 </script>
 
 <template>
   <button
     :disabled="disabled"
-    :variant="variant"
     :class="$$class"
   >
     <slot />

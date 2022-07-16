@@ -12,7 +12,7 @@
   // Data
   const selectedFilters = reactive({
     transfers: [],
-    company: <null|string>null,
+    company: "all",
   });
   const { companyList, companyLoading } = storeToRefs(useCompanyStore());
 
@@ -23,7 +23,6 @@
     {id: 4, title: "3 пересадки"},
   ];
 </script>
-
 
 <template>
   <aside class="sidebar">
@@ -56,7 +55,7 @@
         <fieldset>
           <Radio
             label="Все"
-            value="null"
+            value="all"
             v-model="selectedFilters.company"
           />
           <Radio
