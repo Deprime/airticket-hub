@@ -1,0 +1,15 @@
+.at-button-group {
+  @apply flex flex-row;
+
+  .at-button {
+    @apply rounded-none;
+    @apply grow;
+
+    &:first-child {
+      @apply rounded-l-md;
+    }
+    &:last-child {
+      @apply rounded-r-md;
+    }
+  }
+}

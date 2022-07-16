@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import "./Card.scss";
+  import "./ButtonGroup.scss";
 </script>
 
 <template>
-  <div class="at-card">
+  <div class="at-button-group">
     <slot />
   </div>
 </template>

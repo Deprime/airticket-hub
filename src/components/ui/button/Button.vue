@@ -1,5 +1,46 @@
 <script setup lang="ts">
-  import "./Cars.scss";
+  import "./Button.scss";
+
+  import { computed } from 'vue';
+
+  const props = defineProps({
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    block: {
+      type: Boolean,
+      default: false,
+    },
+    variant: {
+      type: String,
+      default() {
+        return "primary"
+      }
+    }
+  });
+
+  const $$class = computed(() => {
+    let arr = [
+      "at-button",
+      `at-button-${props.variant}`,
+      props.loading ? "at-button-loading" : "",
+      props.block ? "at-button-block" : "",
+      props.disabled ? "at-button-disabled" : "",
+    ]
+    return arr;
+  });
 </script>
 
-<template></template>
+<template>
+  <button
+    :disabled="disabled"
+    :class="$$class"
+  >
+    <slot />
+  </button>
+</template>
