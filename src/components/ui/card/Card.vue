@@ -1,5 +1,9 @@
 <script setup lang="ts">
-  import "./Cars.scss";
+  import "./Card.scss";
 </script>
 
-<template></template>
+<template>
+  <div class="at-card">
+    <slot />
+  </div>
+</template>

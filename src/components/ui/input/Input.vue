@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import "./Cars.scss";
+  import "./Input.scss";
 </script>
 
 <template></template>

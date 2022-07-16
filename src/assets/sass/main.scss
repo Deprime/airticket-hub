@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "./variables.scss";
+
+body {
+  background-color: #F3F7FA;
+  color: #4A4A4A;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+}

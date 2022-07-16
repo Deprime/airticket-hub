@@ -1,5 +1,64 @@
 <script setup lang="ts">
-  import "./Cars.scss";
+  import './Checkbox.scss';
+
+  import { v4 as uuid } from '@lukeed/uuid';
+  import { computed, ref } from 'vue';
+
+  // Emits
+  const emit = defineEmits(['update:modelValue', 'update:checked']);
+
+  const uid = uuid();
+  const focus = ref(false);
+
+  const props = defineProps({
+    label: {
+      type: String,
+      default: "",
+    },
+    modelValue: {
+      type: [Boolean, Array],
+      default: "",
+    },
+    value: {
+      type: [Boolean, String, Number],
+      default: "",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  });
+
+  const $$css = computed(() => {
+    return [
+      "at-checkbox",
+      props.disabled ? "at-checkbox-disabled" : "",
+    ]
+  });
+
+  const model = computed({
+    get() {
+      return props.modelValue;
+    },
+    set(value) {
+      emit("update:modelValue", value);
+    },
+  });
 </script>
 
-<template></template>
+<template>
+  <label
+    :for="uid"
+    :class="$$css"
+  >
+    <input
+      type="checkbox"
+      :id="uid"
+      :disabled="disabled"
+      v-model="model"
+      :value="value"
+      @focus="focus = true"
+      @blur="focus = false"
+    /> {{ label }}
+  </label>
+</template>

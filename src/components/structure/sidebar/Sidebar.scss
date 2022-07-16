@@ -1,0 +1,17 @@
+.sidebar {
+  .filter-set {
+    @apply mb-4 pb-5;
+
+    .label {
+      @apply uppercase font-semibold;
+      @apply block;
+      @apply p-5;
+    }
+
+    .at-checkbox,
+    .at-radio {
+      @apply py-2;
+      @apply hover:bg-blue-50
+    }
+  }
+}
