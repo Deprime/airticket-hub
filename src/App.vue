@@ -10,8 +10,8 @@
 
   // Components
   import { Skeleton, Button } from '@/components/ui';
-  import { Ticket } from '@/components/shared';
-  import { Sidebar, QuickFilters } from '@/components/structure';
+  import { Ticket, ErrorAlert } from '@/components/shared';
+  import { Search, Sidebar, QuickFilters } from '@/components/structure';
 
   // Data
   const APP_NAME  = import.meta.env.VUE_APP_NAME;
@@ -66,13 +66,17 @@
     </header>
 
     <main class="main">
+      <Search />
+
       <Sidebar />
 
       <section class="content">
         <template v-if="connectionError">
-          <div>
-            Опс! Похоже возникла ошибка при загрузке данны.
-          </div>
+          <ErrorAlert
+            class="mb-4"
+            title="Опс!"
+            details="Похоже возникла ошибка при загрузке данны."
+          />
         </template>
         <template v-else>
           <div class="ticket-list">

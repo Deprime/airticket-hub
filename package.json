@@ -8,14 +8,16 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ./src --color"
   },
   "dependencies": {
     "@lukeed/uuid": "^2.0.0",
     "@vueuse/core": "^8.9.3",
+    "air-datepicker": "^3.2.0",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.3",
     "pinia": "^2.0.16",
     "vue": "^3.2.37"
   },

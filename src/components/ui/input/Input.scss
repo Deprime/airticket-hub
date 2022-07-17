@@ -1,0 +1,24 @@
+.at-control {
+  @apply inline-block z-10 relative px-4 py-4;
+  @apply bg-white;
+
+  > label {
+    @apply text-xs leading-4 font-medium text-gray-700;
+  }
+
+  &-focused {
+    @apply outline outline-2 outline-amber-500;
+    @apply z-30;
+  }
+
+  .at-control-input {
+    @apply  z-20 relative;
+    @apply placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm;
+    @apply text-gray-700 font-medium text-sm;
+    @apply grow bg-transparent outline-none;
+  }
+
+  .at-datepicker-icon {
+    @apply absolute z-10 top-3.5 right-2.5
+  }
+}

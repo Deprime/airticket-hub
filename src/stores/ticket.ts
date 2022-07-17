@@ -7,7 +7,7 @@ const useTicketStore = defineStore('ticket', {
   state: () => ({
     // ticketList:  useStorage('ticketList', <any[]>[]),
     ticketList:  <any[]>[],
-    ticketLoading: false,
+    ticketLoading: true,
     search: <string|number> "",
     page: 1,
     perPage: 6,
