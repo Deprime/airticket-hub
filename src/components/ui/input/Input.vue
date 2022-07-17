@@ -1,12 +1,12 @@
 <script setup lang="ts">
   import "./Input.scss";
   import 'air-datepicker/air-datepicker.css';
+  import iconCalendar from '@/assets/images/icon-calendar.svg';
 
-  import { onMounted } from "vue";
-  import AirDatepicker from 'air-datepicker';
-
-  import { computed, ref } from 'vue';
+  import { onMounted, computed, ref } from "vue";
   import { v4 as uuid } from '@lukeed/uuid';
+  import AirDatepicker from 'air-datepicker';
+  import dayjs from 'dayjs';
   import type { Ref } from 'vue';
 
   // Emits
@@ -70,14 +70,25 @@
   const $$readonly   = computed(() => (props.nativeType === 'date') ? true : false);
 
   // Methods
-  const onInput = (e: Event) => {
+  const onInput = (e: Event): void => {
     emit('update:modelValue', (e.target as HTMLInputElement).value)
   }
 
+  const mountDatepicker = (): void => {
+    const format = 'YYYY-MM-DD';
+    const datepicker = new AirDatepicker(input.value, {
+      dateFormat: format.toLowerCase(),
+      onSelect({date}) {
+        const value = dayjs(<Date>date).format(format);
+        emit('update:modelValue', value);
+        datepicker.hide();
+      }
+    });
+  }
+
   onMounted(() => {
-    console.log(input.value);
     if (props.nativeType === "date") {
-      new AirDatepicker(input.value);
+      mountDatepicker();
     }
   })
 </script>
@@ -87,14 +98,12 @@
     <label
       v-if="label"
       :for="uid"
-      class="text-xs leading-4 font-medium text-gray-700"
     >
       {{ label }}
     </label>
 
     <div class="flex flex-row">
       <slot name="prepend"></slot>
-
       <input
         autocomplete="off"
         ref="input"
@@ -110,7 +119,15 @@
         @focus="focus = true"
         @blur="focus = false"
       />
+      <template v-if="nativeType === 'date'">
+        <img
+          :src="iconCalendar"
+          alt="calendar"
+          class="at-datepicker-icon"
+        >
+      </template>
     </div>
+
     <template v-if="loading">
       <svg class="absolute right-2 bottom-2.5 animate-spin text-gray-500 h-5 w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
