@@ -1,0 +1,21 @@
+.search {
+  @apply mb-6 pb-6;
+  @apply border-b border-slate-200;
+
+  .at-control-group {
+    @apply flex flex-row;
+    @apply shadow-md shadow-gray-400/20;
+    @apply rounded-md;
+
+    .at-control {
+      @apply basis-1/4;
+
+      &:first-child {
+        @apply rounded-l-md;
+      }
+      &:last-child {
+        @apply rounded-r-md;
+      }
+    }
+  }
+}

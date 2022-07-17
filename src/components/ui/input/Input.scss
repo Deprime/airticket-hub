@@ -1,0 +1,10 @@
+.at-control {
+  @apply inline-block relative px-4 py-4;
+  @apply border border-solid border-gray-200;
+
+  .at-control-input {
+    @apply placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm;
+    @apply text-gray-700 font-medium text-sm;
+    @apply grow bg-transparent outline-none;
+  }
+}
