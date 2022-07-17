@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import "./Skeleton.scss";
   const props = defineProps({
     height: {
       type: String,
@@ -13,7 +14,7 @@
 
 <template>
   <div
-    class="inline-block bg-slate-200"
+    class="at-skeleton"
     :style="`height: ${height}; width: ${width};`"
   ></div>
 </template>

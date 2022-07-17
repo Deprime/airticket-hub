@@ -1,0 +1,19 @@
+.at-skeleton {
+  @apply inline-block bg-slate-200 relative overflow-hidden;
+  @apply before:content-[''];
+
+  &::before {
+    @apply block absolute -left-40 top-0 h-full w-40;
+    background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.712) 50%, transparent 100%);
+    animation: load 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to   {
+    left: 100%;
+  }
+}
