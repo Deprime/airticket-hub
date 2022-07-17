@@ -4,7 +4,8 @@
 
   .at-control-group {
     @apply flex flex-row;
-    @apply shadow-md shadow-gray-400/20;
+    @apply space-x-0.5;
+    @apply shadow-lg shadow-gray-400/10;
     @apply rounded-md;
 
     .at-control {

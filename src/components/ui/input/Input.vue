@@ -1,15 +1,21 @@
 <script setup lang="ts">
   import "./Input.scss";
+  import 'air-datepicker/air-datepicker.css';
+
+  import { onMounted } from "vue";
+  import AirDatepicker from 'air-datepicker';
 
   import { computed, ref } from 'vue';
   import { v4 as uuid } from '@lukeed/uuid';
+  import type { Ref } from 'vue';
 
   // Emits
   const emit = defineEmits(['update:modelValue']);
 
   // id for label
   const uid = uuid();
-  const focus = ref(false)
+  const focus = ref(false);
+  const input: Ref<string | HTMLElement > = ref("")
 
   const props = defineProps({
     inputCss: {
@@ -48,26 +54,32 @@
     },
   });
 
+  // Computed
   const $$css = computed(() => {
     return [
       "at-control",
+      focus.value ? "at-control-focused" : "",
       // props.loading ? "" : "",
-      props.disabled ? "bg-gray-100" : "bg-white",
+      props.disabled ? "at-control-disabled" : "",
     ]
     .join(" ");
   });
 
-  const $$inputCss = computed(() => {
-    return [
-      "at-control-input",
-      props.inputCss,
-    ]
-    .join(" ");
-  });
+  const $$inputCss   = computed(() => ["at-control-input", props.inputCss].join(" "));
+  const $$nativeType = computed(() => (props.nativeType === 'date') ? 'text' : props.nativeType);
+  const $$readonly   = computed(() => (props.nativeType === 'date') ? true : false);
 
-  const input = (e: Event) => {
+  // Methods
+  const onInput = (e: Event) => {
     emit('update:modelValue', (e.target as HTMLInputElement).value)
   }
+
+  onMounted(() => {
+    console.log(input.value);
+    if (props.nativeType === "date") {
+      new AirDatepicker(input.value);
+    }
+  })
 </script>
 
 <template>
@@ -82,16 +94,19 @@
 
     <div class="flex flex-row">
       <slot name="prepend"></slot>
+
       <input
         autocomplete="off"
+        ref="input"
         :class="$$inputCss"
         :id="uid"
         :disabled="disabled"
-        :type="nativeType"
+        :readonly="$$readonly"
+        :type="$$nativeType"
         :variant="variant"
         :placeholder="placeholder"
         :value="modelValue"
-        @input="input"
+        @input="onInput"
         @focus="focus = true"
         @blur="focus = false"
       />
