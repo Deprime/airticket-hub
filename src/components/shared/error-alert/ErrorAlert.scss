@@ -1,0 +1,9 @@
+.at-error-alert {
+  @apply rounded-lg border-2 border-yellow-300 bg-yellow-200;
+  @apply px-6 py-4;
+  @apply font-semibold;
+
+  h4 {
+    @apply font-bold text-lg;
+  }
+}
