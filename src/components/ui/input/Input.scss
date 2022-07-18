@@ -1,5 +1,6 @@
 .at-control {
-  @apply inline-block z-10 relative px-4 py-4;
+  @apply inline-block z-10 relative;
+  @apply pl-5 pr-4 py-4;
   @apply bg-white;
 
   > label {
@@ -12,13 +13,13 @@
   }
 
   .at-control-input {
-    @apply  z-20 relative;
+    @apply z-20 relative;
     @apply placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm;
     @apply text-gray-700 font-medium text-sm;
-    @apply grow bg-transparent outline-none;
+    @apply w-full bg-transparent outline-none;
   }
 
   .at-datepicker-icon {
-    @apply absolute z-10 top-3.5 right-2.5
+    @apply absolute z-10 top-3.5 right-2.5;
   }
 }
