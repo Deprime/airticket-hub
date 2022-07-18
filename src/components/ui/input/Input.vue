@@ -78,10 +78,10 @@
     const format = 'YYYY-MM-DD';
     const datepicker = new AirDatepicker(input.value, {
       dateFormat: format.toLowerCase(),
+      autoClose: true,
       onSelect({date}) {
         const value = dayjs(<Date>date).format(format);
         emit('update:modelValue', value);
-        datepicker.hide();
       }
     });
   }

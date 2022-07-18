@@ -36,3 +36,10 @@
 .ticker-list-leave-to {
   opacity: 0;
 }
+
+
+// Hacks
+.air-datepicker--pointer {
+  display: none !important;
+  visibility: hidden !important;
+}
