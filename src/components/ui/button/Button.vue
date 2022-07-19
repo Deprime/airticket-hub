@@ -3,6 +3,7 @@
 
   import { computed } from 'vue';
 
+  // Props
   const props = defineProps({
     loading: {
       type: Boolean,
@@ -24,6 +25,7 @@
     }
   });
 
+  // Computed
   const $$class = computed(() => {
     let arr = [
       "at-button",

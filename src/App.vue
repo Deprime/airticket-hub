@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import './App.scss';
-  import Logo from './assets/images/logo.svg';
 
   import { ref, onMounted } from 'vue';
   import { storeToRefs } from 'pinia';
@@ -9,20 +8,21 @@
   import { useTicketStore, useCompanyStore } from '@/stores';
 
   // Components
-  import { Skeleton, Button } from '@/components/ui';
+  import { Skeleton } from '@/components/ui';
   import { Ticket, ErrorAlert } from '@/components/shared';
-  import { Search, Sidebar, QuickFilters } from '@/components/structure';
+  import { Header, Search, Sidebar, QuickFilters, Pagination } from '@/components/structure';
 
   // Data
-  const APP_NAME  = import.meta.env.VUE_APP_NAME;
   const connectionError = ref(false);
   const loading = ref(false);
+
   const { fetchTicketList, nextPage } = useTicketStore();
   const { ticketList, ticketLoading, filtredTicketList, hasNextPage, perPage } = storeToRefs(useTicketStore());
 
   const { fetchCompanyList } = useCompanyStore();
   const { companyList, companyMap } = storeToRefs(useCompanyStore());
 
+  // Methods
   /**
    * Fetch data
    */
@@ -33,7 +33,7 @@
       }
       if (ticketList.value.length === 0) {
         await fetchTicketList();
-        await setTimeout(() => {}, 3000);
+        await setTimeout(() => {}, 2000);
       }
     }
     catch (error: any) {
@@ -61,13 +61,10 @@
 
 <template>
   <div class="app-wrapper">
-    <header class="header">
-      <img :src="Logo" :alt="APP_NAME">
-    </header>
+    <Header />
 
     <main class="main">
       <Search />
-
       <Sidebar />
 
       <section class="content">
@@ -75,7 +72,7 @@
           <ErrorAlert
             class="mb-4"
             title="Опс!"
-            details="Похоже возникла ошибка при загрузке данны."
+            details="Похоже возникла ошибка при загрузке данных."
           />
         </template>
         <template v-else>
@@ -90,7 +87,7 @@
             <template v-else>
               <QuickFilters />
 
-              <TransitionGroup name="ticker-list">
+              <TransitionGroup name="ticket-list">
                 <Ticket
                   v-for="ticket in filtredTicketList"
                   :key="`t-${ticket.id}`"
@@ -101,20 +98,10 @@
             </template>
           </div>
 
-          <nav v-if="hasNextPage">
-            <Button
-              block
-              @click="loadMore"
-              :disabled="loading"
-            >
-              <template v-if="loading">
-                Загрузка..
-              </template>
-              <template v-else>
-                Показать еще {{ perPage }} билетов
-              </template>
-            </Button>
-          </nav>
+          <Pagination
+            :loading="loading"
+            @load-more="loadMore"
+          />
         </template>
       </section>
     </main>

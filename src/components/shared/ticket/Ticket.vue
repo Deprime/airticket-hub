@@ -4,20 +4,19 @@
   import S7Logo from '@/assets/images/companies/S7_Logo.png';
   import XALogo from '@/assets/images/companies/XiamenAir_Logo.png';
 
-  import { datetimeHelper, currencyHelper } from '@/helpers';
+  // Helpers
+  import { currencyHelper, datetimeHelper, lexiconHelper } from '@/helpers';
 
   // Components
   import { Card } from '@/components/ui';
 
-  import type { ITicket } from '@/types/ITicket';
+  // Types
+  import type { ILogoMap } from './types'
+  import type { ITicket }  from '@/types/ITicket';
   import type { ICompany } from '@/types/ICompany';
   interface Props {
     ticket: ITicket,
     company: ICompany
-  }
-
-  interface ILogoMap {
-    [name: string]: string;
   }
 
   // Dirty hack
@@ -30,7 +29,13 @@
   const { ticket, company } = defineProps<Props>();
 
   // Data
-  const logoSrc = `./src/assets/images/companies/${company.logo}`;
+  const durationLabel = datetimeHelper.getFormattedDuration(ticket.info.duration);
+  const dateStartLabel = datetimeHelper.getFormattedTime(parseInt(ticket.info.dateStart) / 1000 );
+  const dateEndLabel = datetimeHelper.getFormattedTime(parseInt(ticket.info.dateEnd) / 1000 );
+
+  const stopsCount = ticket.info.stops.length;
+  const stopsLabelVariants = ['пересадкa', 'пересадки', 'пересадок'];
+  const stopsLabel = lexiconHelper.pluralize(stopsCount, stopsLabelVariants);
 </script>
 
 <template>
@@ -54,7 +59,7 @@
           {{ ticket.info.origin }} - {{ ticket.info.destination }}
         </p>
         <p>
-          {{ datetimeHelper.secondsToTime(ticket.info.dateStart) }} - {{ datetimeHelper.secondsToTime(ticket.info.dateEnd) }}
+          {{ dateStartLabel }} - {{ dateEndLabel }}
         </p>
       </div>
       <div>
@@ -62,15 +67,20 @@
           В пути
         </p>
         <p>
-          {{ datetimeHelper.secondsToTime(ticket.info.duration)}}
+          {{ durationLabel }}
         </p>
       </div>
       <div>
         <p class="label">
-          {{ ticket.info.stops.length }} пересадки
+          <template v-if="stopsCount === 0">
+            Без пересадок
+          </template>
+          <template v-else>
+            {{ stopsCount }} {{ stopsLabel }}
+          </template>
         </p>
         <p>
-          {{ ticket.info.stops.join(" - ") }}
+          {{ ticket.info.stops.join(", ") }}
         </p>
       </div>
     </div>

@@ -1,25 +1,47 @@
+import type { CustomDateObject } from '@/types/CustomDateObject';
+
 /**
  * Helpers to work with date & time
  */
 const datetimeHelper = {
   /**
-   * Seconds to time
+   * Get formatted object
    */
-  secondsToTime: (runtime: number | string): string => {
-    const seconds = (typeof runtime === 'string') ? parseInt(runtime) : runtime;
-    const format  = ["h", "m", "s"]
-    const date    = new Date(0);
+  getDateObject: (unixtime: number): CustomDateObject => {
+    const dateObject: CustomDateObject = {}
+    const durationDate = new Date(unixtime);
+    const h = durationDate.getHours();
+    const m = durationDate.getMinutes();
 
-    date.setSeconds(seconds);
-    const duration = date.toISOString().substring(11, 19);
+    if (h > 0) {
+      dateObject.h = `${h}`;
+    }
+    if (m > 0) {
+      dateObject.m = m.toString().padStart(2, '0');
+    }
+    return dateObject
+  },
 
-    return duration
-      .split(':')
-      .map((item, i) => {
-        if (parseInt(item) > 0)
-          return `${parseInt(item)}${format[i]}`;
-      })
-      .join(' ');
+  /**
+   * Get formatted duration
+   */
+  getFormattedDuration: (unixtime: number) => {
+    const dateObject = datetimeHelper.getDateObject(unixtime);
+    const separator = (dateObject.h && dateObject.m) ? ' ' : '';
+    const h = (dateObject.h) ? `${dateObject.h}ч`: '';
+    const m = (dateObject.m) ? `${dateObject.m}м` : '';
+    return `${h}${separator}${m}`;
+  },
+
+  /**
+   * Get formatted time
+   */
+  getFormattedTime: (unixtime: number) => {
+    const dateObject = datetimeHelper.getDateObject(unixtime);
+    const separator = (dateObject.h && dateObject.m) ? ':' : '';
+    const h = (dateObject.h) ? `${dateObject.h}`: '';
+    const m = (dateObject.m) ? `${dateObject.m}` : '';
+    return `${h}${separator}${m}`;
   },
 }
 

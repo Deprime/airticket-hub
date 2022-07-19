@@ -23,3 +23,9 @@
     @apply absolute z-10 top-3.5 right-2.5;
   }
 }
+
+// Hacks
+.air-datepicker--pointer {
+  display: none !important;
+  visibility: hidden !important;
+}
