@@ -30,3 +30,13 @@
     }
   }
 }
+
+.ticket-list-enter-active {
+  transition: all 0.2s ease-in-out;
+}
+.ticket-list-enter-from {
+  opacity: 0;
+}
+.ticket-list-leave-to {
+  opacity: 0;
+}

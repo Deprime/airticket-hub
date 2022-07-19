@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  // Assets
   import "./Input.scss";
   import 'air-datepicker/air-datepicker.css';
   import iconCalendar from '@/assets/images/icon-calendar.svg';
@@ -7,16 +8,16 @@
   import { v4 as uuid } from '@lukeed/uuid';
   import AirDatepicker from 'air-datepicker';
   import dayjs from 'dayjs';
+
+  import Loader from './Loader.vue'
+
+  // Types
   import type { Ref } from 'vue';
 
   // Emits
   const emit = defineEmits(['update:modelValue']);
 
-  // id for label
-  const uid = uuid();
-  const focus = ref(false);
-  const input: Ref<string | HTMLElement > = ref("")
-
+  // Props
   const props = defineProps({
     inputCss: {
       type: String,
@@ -54,12 +55,17 @@
     },
   });
 
+  // Data
+  const uid = uuid(); // id for label
+  const focus = ref(false);
+  const input: Ref<string | HTMLElement > = ref("")
+
   // Computed
   const $$css = computed(() => {
     return [
       "at-control",
       focus.value ? "at-control-focused" : "",
-      // props.loading ? "" : "",
+      props.loading ? "at-control-loading" : "",
       props.disabled ? "at-control-disabled" : "",
     ]
     .join(" ");
@@ -74,6 +80,9 @@
     emit('update:modelValue', (e.target as HTMLInputElement).value)
   }
 
+  /**
+   * On mount datepicker
+   */
   const mountDatepicker = (): void => {
     const format = 'YYYY-MM-DD';
     const datepicker = new AirDatepicker(input.value, {
@@ -119,21 +128,15 @@
         @focus="focus = true"
         @blur="focus = false"
       />
-      <template v-if="nativeType === 'date'">
-        <img
-          :src="iconCalendar"
-          alt="calendar"
-          class="at-datepicker-icon"
-        >
-      </template>
+      <img
+        v-if="nativeType === 'date'"
+        :src="iconCalendar"
+        alt="calendar"
+        class="at-datepicker-icon"
+      />
     </div>
 
-    <template v-if="loading">
-      <svg class="absolute right-2 bottom-2.5 animate-spin text-gray-500 h-5 w-5 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-    </template>
+    <Loader v-if="loading" />
   </div>
 </template>
 

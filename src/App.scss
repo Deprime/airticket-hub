@@ -3,15 +3,6 @@
   max-width: 47.125rem;
 }
 
-.header {
-  @apply text-center;
-  @apply pt-2 pb-3;
-
-  img {
-    @apply inline-block;
-  }
-}
-
 .main {
   @apply flex flex-row flex-wrap;
 
@@ -25,21 +16,4 @@
   .content {
     @apply basis-8/12 pb-8;
   }
-}
-
-.ticker-list-enter-active {
-  transition: all 0.2s ease-in-out;
-}
-.ticker-list-enter-from {
-  opacity: 0;
-}
-.ticker-list-leave-to {
-  opacity: 0;
-}
-
-
-// Hacks
-.air-datepicker--pointer {
-  display: none !important;
-  visibility: hidden !important;
 }
